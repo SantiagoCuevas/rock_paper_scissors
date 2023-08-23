@@ -1,12 +1,25 @@
-"use strict";
-
 // Rock, Paper, Scissors
-console.log("Let's play Rock, Paper, Scissors!");
 
-// Get computers choice
-// const playerSelection = prompt("rock, paper, or scissors");
-const playerSelection = "pApEr";
-console.log("You chose:", playerSelection.toUpperCase());
+const ROCK = "rock";
+const PAPER = "paper";
+const SCISSORS = "scissors";
+const PLAYER = "player";
+const COMPUTER = "computer";
+const TIE = "tie";
+
+function startIntroduction() {
+  alert("Let's play Rock, Paper, Scissors!");
+}
+
+function getPlayerChoice() {
+  let input = "";
+  while (![ROCK, PAPER, SCISSORS].includes(input)) {
+    input = prompt(
+      "Please choose between Rock, Paper or Scissors."
+    )?.toLowerCase();
+  }
+  return input;
+}
 
 // Get the computers choice
 function getComputerChoice() {
@@ -23,9 +36,6 @@ function getComputerChoice() {
   }
 }
 
-const computerSelection = getComputerChoice();
-console.log("Computer chose:", computerSelection.toUpperCase(0));
-
 // Compare the two and determine who wins
 function playRound(playerSelection, computerSelection) {
   const playerInput = playerSelection.toLowerCase();
@@ -35,11 +45,53 @@ function playRound(playerSelection, computerSelection) {
     (playerInput === "paper" && computerSelection === "rock") ||
     (playerInput === "scissors" && computerSelection === "paper")
   ) {
-    return `You win! ${playerInput.toUpperCase()} beats ${computerSelection.toUpperCase()}.`;
+    return PLAYER;
+    // return `You win! ${playerInput.toUpperCase()} beats ${computerSelection.toUpperCase()}.`;
   } else if (playerInput === computerSelection) {
-    return `Tie! You both picked ${playerInput.toUpperCase()}`;
+    return TIE;
+    // return `Tie! You both picked ${playerInput.toUpperCase()}`;
   } else {
-    return `You lose! ${computerSelection.toUpperCase()} beats ${playerInput.toUpperCase()}.`;
+    return COMPUTER;
+    // return `You lose! ${computerSelection.toUpperCase()} beats ${playerInput.toUpperCase()}.`;
   }
 }
-console.log(playRound(playerSelection, computerSelection));
+
+function startConclusion() {
+  alert("Thanks for playing!");
+}
+
+function playGame(roundCount) {
+  startIntroduction();
+
+  let round = 0;
+  let playerScore = 0;
+  let computerScore = 0;
+
+  while (round < roundCount) {
+    const playerChoice = getPlayerChoice();
+    const computerChoice = getComputerChoice();
+    const winner = playRound(playerChoice, computerChoice);
+
+    if (winner === "player") {
+      playerScore++;
+      alert(
+        `You chose: ${playerChoice.toUpperCase()}. The computer chose: ${computerChoice.toUpperCase()}. You WIN! Player: ${playerScore} Computer: ${computerScore}.`
+      );
+    } else if (winner === "computer") {
+      computerScore++;
+      alert(
+        `You chose: ${playerChoice.toUpperCase()}. The computer chose: ${computerChoice.toUpperCase()}. You LOSE! Player: ${playerScore} Computer: ${computerScore}.`
+      );
+    } else {
+      alert(
+        `You chose: ${playerChoice.toUpperCase()}. The computer chose: ${computerChoice.toUpperCase()}. TIE! Player: ${playerScore} Computer: ${computerScore}.`
+      );
+    }
+
+    round++;
+  }
+
+  startConclusion();
+}
+
+playGame(5);
