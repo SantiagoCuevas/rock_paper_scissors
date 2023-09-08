@@ -3,14 +3,10 @@
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
-const PLAYER = "player";
-const COMPUTER = "computer";
-const TIE = "tie";
 
 let playerScore = 0;
 let computerScore = 0;
 
-const container = document.querySelector("container");
 const title = document.getElementById("title");
 const beginGameBtn = document.getElementById("beginGame");
 const rockBtn = document.getElementById(ROCK);
@@ -24,8 +20,8 @@ function gameSetUp() {
   playerScore = 0;
   computerScore = 0;
 
-  title.innerHTML = "Choose Wisely...";
-  beginGameBtn.remove();
+  title.innerHTML = "CHOOSE WISELY...";
+  beginGameBtn.classList.add("hidden");
   rockBtn.classList.remove("hidden");
   paperBtn.classList.remove("hidden");
   scissorsBtn.classList.remove("hidden");
@@ -84,8 +80,14 @@ function playRound(playerInput, computerSelection) {
     scoreTracker.innerHTML = `You: ${playerScore} Computer: ${computerScore}`;
   }
 
-  if (playerScore === 5 || computerScore === 5) {
-    title.innerHTML = "GAME OVER!";
+  if (playerScore === 5) {
+    title.innerHTML = "GAME OVER! PLAYER WINS!";
+    rockBtn.classList.add("hidden");
+    paperBtn.classList.add("hidden");
+    scissorsBtn.classList.add("hidden");
+    playAgainBtn.classList.remove("hidden");
+  } else if (computerScore === 5) {
+    title.innerHTML = "GAME OVER! COMPUTER WINS!";
     rockBtn.classList.add("hidden");
     paperBtn.classList.add("hidden");
     scissorsBtn.classList.add("hidden");
